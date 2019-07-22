@@ -1,0 +1,39 @@
+{
+  "name": "wpa-client2",
+  "version": "0.0.1",
+  "description": "An alerting service when a new article appears.",
+  "productName": "WebPageAlerter",
+  "cordovaId": "org.cube219.webpagealerter",
+  "author": "Cube219",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.1",
+    "moment": "^2.24.0",
+    "quasar": "^1.0.0",
+    "vuex-module-decorators": "^0.9.9"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0",
+    "@quasar/quasar-app-extension-typescript": "^1.0.0-alpha.14",
+    "@types/node": "11.9.5",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "tslint": "^5.18.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
