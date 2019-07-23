@@ -23,10 +23,10 @@
               self="top left"
             >
               <q-list>
-                <q-item v-if="this.info.isRead == false" clickable @click="markAsRead()" disable>
+                <q-item v-if="this.info.isRead == false" clickable @click="markAsRead()">
                   <q-item-section>읽음으로 표시</q-item-section>
                 </q-item>
-                <q-item v-else clickable @click="markAsUnread()" disable>
+                <q-item v-else clickable @click="markAsUnread()">
                   <q-item-section>읽지 않음으로 표시</q-item-section>
                 </q-item>
 
@@ -108,11 +108,33 @@ export default class WebPageCard extends Vue {
   }
   markAsRead () {
     this.loading = true;
-    // TODO: 구현
+    axios.put('/api/page/read/' + this.info._id).then((response) => {
+      this.loading = false;
+      this.info.isRead = true;
+    }).catch((e) => {
+      this.loading = false;
+      this.$q.notify({
+        color: 'negative',
+        icon: 'warning',
+        position: 'bottom-right',
+        message: '읽음으로 표시하는데 실패했습니다.'
+      });
+    });
   }
   markAsUnread () {
     this.loading = true;
-    // TODO: 구현
+    axios.put('/api/page/read/' + this.info._id, { setUnread: true }).then((response) => {
+      this.loading = false;
+      this.info.isRead = false;
+    }).catch((e) => {
+      this.loading = false;
+      this.$q.notify({
+        color: 'negative',
+        icon: 'warning',
+        position: 'bottom-right',
+        message: '읽지 않음으로 표시하는데 실패했습니다.'
+      });
+    });
   }
   archieve () {
     this.loading = true;
@@ -151,7 +173,7 @@ export default class WebPageCard extends Vue {
           position: 'bottom-right',
           message: `성공적으로 제거했습니다. (${this.info.title})`
         });
-        this.$store.commit('removePageInfos', this.info);
+        this.$store.commit('removePageInfos', [this.info]);
       }).catch((e) => {
         this.$q.notify({
           color: 'negative',
