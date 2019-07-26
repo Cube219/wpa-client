@@ -23,16 +23,18 @@
               self="top left"
             >
               <q-list>
-                <q-item v-if="this.info.isRead == false" clickable @click="markAsRead()">
-                  <q-item-section>읽음으로 표시</q-item-section>
-                </q-item>
-                <q-item v-else clickable @click="markAsUnread()">
-                  <q-item-section>읽지 않음으로 표시</q-item-section>
-                </q-item>
+                <div v-if="this.info.isArchieved == false">
+                  <q-item v-if="this.info.isRead == false" clickable @click="markAsRead()">
+                    <q-item-section>읽음으로 표시</q-item-section>
+                  </q-item>
+                  <q-item v-else clickable @click="markAsUnread()">
+                    <q-item-section>읽지 않음으로 표시</q-item-section>
+                  </q-item>
 
-                <q-item clickable class="text-secondary" @click="archieve()">
-                  <q-item-section>보관</q-item-section>
-                </q-item>
+                  <q-item clickable class="text-secondary" @click="archieve()">
+                    <q-item-section>보관</q-item-section>
+                  </q-item>
+                </div>
 
                 <q-item clickable class="text-negative" @click="remove()">
                   <q-item-section>제거</q-item-section>
@@ -75,7 +77,7 @@ export default class WebPageCard extends Vue {
   loading: boolean = false;
 
   get isReadGrey () {
-    if (this.info.isRead === true) {
+    if (this.info.isArchieved === false && this.info.isRead === true) {
       return 'bg-grey-4';
     } else {
       return '';

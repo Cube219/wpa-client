@@ -62,8 +62,11 @@ export default class Main extends Vue {
 
     this.$store.commit('clearPageInfos');
 
+    // @ts-ignore
     this.$refs.infscroll.reset();
+    // @ts-ignore
     this.$refs.infscroll.resume();
+    // @ts-ignore
     this.$refs.infscroll.trigger();
   }
 
