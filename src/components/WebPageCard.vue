@@ -67,6 +67,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+// @ts-ignore
 import moment from 'moment'
 import axios from 'axios'
 
