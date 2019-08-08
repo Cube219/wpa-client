@@ -47,17 +47,21 @@ module.exports = function (ctx) {
         'QCardSection',
         'QCardActions',
         'QExpansionItem',
+        'QForm',
         'QLayout',
         'QHeader',
+        'QInput',
         'QDrawer',
         'QMenu',
         'QPageContainer',
         'QPage',
         'QSeparator',
-        'QSpinner',
+        // 'QSpinner',
         'QSpinnerDots',
+        'QSpinnerFacebook',
         'QToolbar',
         'QToolbarTitle',
+        'QToggle',
         'QBtn',
         'QIcon',
         'QInfiniteScroll',
@@ -73,6 +77,7 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'Cookies',
         'Dialog',
         'Notify'
       ]
@@ -82,7 +87,7 @@ module.exports = function (ctx) {
 
     build: {
       scopeHoisting: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'history',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,

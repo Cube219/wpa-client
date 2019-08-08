@@ -1,4 +1,30 @@
-import { RouteConfig } from 'vue-router';
+import { Route, RouteConfig } from 'vue-router';
+import store from '../store';
+
+const requireAuth = (to: Route, from: Route, next: (to?: any) => void) => {
+  let token: string = store().getters.getToken;
+  if (token === '') {
+    store().commit('setTokenFromCookie');
+    token = store().getters.getToken;
+  }
+
+  if (token === '') {
+    return next('/login');
+  } else {
+    return next();
+  }
+};
+const checkAlreadyAuth = (to: Route, from: Route, next: (to?: any) => void) => {
+  store().commit('setTokenFromCookie');
+  const token = store().getters.getToken;
+
+  if (token === '') {
+    return next();
+  } else {
+    return next('/');
+  }
+};
+
 const routes: RouteConfig[] = [
   {
     path: '/',
@@ -9,6 +35,12 @@ const routes: RouteConfig[] = [
       { path: 'archieved', component: () => import('pages/Main.vue') },
       { path: 'setting', component: () => import('pages/Setting.vue') },
     ],
+    beforeEnter: requireAuth,
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/Login.vue'),
+    beforeEnter: checkAlreadyAuth,
   },
 ];
 

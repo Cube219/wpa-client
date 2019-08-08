@@ -1,4 +1,6 @@
-import { VuexModule, Module, Mutation } from 'vuex-module-decorators';
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
+import { Cookies } from 'quasar';
+import axios from 'axios';
 
 interface WebPageInfo {
   _id: string;
@@ -15,6 +17,31 @@ interface WebPageInfo {
 @Module({ name: 'pageInfos' })
 export default class PageInfos extends VuexModule {
   pages: WebPageInfo[] = [];
+  token: string = '';
+
+  @Mutation
+  setToken(params: {token: string, isSessionCookie: boolean} ) {
+    console.log(params);
+    this.token = params.token;
+
+    if (params.isSessionCookie === false) {
+      Cookies.set('auth_token', params.token, { expires: 15 });
+    } else {
+      Cookies.set('auth_token', params.token);
+    }
+  }
+
+  @Mutation
+  setTokenFromCookie() {
+    this.token = Cookies.get('auth_token');
+    if (this.token === undefined) {
+      this.token = '';
+    }
+  }
+
+  get getToken() {
+    return this.token;
+  }
 
   @Mutation
   addPageInfos(p: WebPageInfo[]) {

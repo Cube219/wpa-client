@@ -3,13 +3,13 @@
     <div v-if="isNew">
       <q-badge color="orange" floating>New</q-badge>
     </div>
-    <!-- <img :src="'https://wpa.cube219.me/' + this.info.imageUrl"> -->
+    <img v-if="this.info.imageUrl !== ''" :src="'https://wpa.cube219.me/' + this.info.imageUrl">
 
     <q-card-section>
       <div class="row">
         <div class="col">
           <div class="text-h6">{{ this.info.title }}</div>
-          <div class="text-subtitle2"> (사이트 이름) </div>
+          <div class="text-subtitle2"> {{ this.info.siteTitle }} </div>
           <div class="text-subtitle2">{{ getDateStr }}</div>
         </div>
 
