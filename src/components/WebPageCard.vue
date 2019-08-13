@@ -3,7 +3,7 @@
     <div v-if="isNew">
       <q-badge color="orange" floating>New</q-badge>
     </div>
-    <img v-if="this.info.imageUrl !== ''" :src="'https://wpa.cube219.me/' + this.info.imageUrl">
+    <img v-if="this.info.imageUrl !== ''" :src="this.$axios.defaults.baseURL + this.info.imageUrl">
 
     <q-card-section>
       <div class="row">

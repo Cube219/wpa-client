@@ -21,7 +21,6 @@ export default class PageInfos extends VuexModule {
 
   @Mutation
   setToken(params: {token: string, isSessionCookie: boolean} ) {
-    console.log(params);
     this.token = params.token;
 
     if (params.isSessionCookie === false) {
