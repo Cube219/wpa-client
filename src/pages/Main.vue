@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex">
+  <q-page>
     <h3 class="title">{{ this.title }}</h3>
     <q-infinite-scroll @load="onLoad" ref="infscroll">
       <div class="q-pa-xl row items-start q-gutter-lg">
@@ -12,6 +12,11 @@
         </div>
       </template>
     </q-infinite-scroll>
+
+    <q-btn
+      color="primary" round size="lg" icon="add"
+      class="fixed-bottom-right add-page-btn"
+    />
   </q-page>
 </template>
 
@@ -19,6 +24,10 @@
 .title {
   margin-bottom: 0px;
   margin-left: 40px;
+}
+.add-page-btn {
+  right: 50px;
+  bottom: 50px;
 }
 </style>
 
