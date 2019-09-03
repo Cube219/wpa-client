@@ -46,6 +46,7 @@ module.exports = function (ctx) {
         'QCard',
         'QCardSection',
         'QCardActions',
+        'QDialog',
         'QExpansionItem',
         'QForm',
         'QLayout',
@@ -72,6 +73,7 @@ module.exports = function (ctx) {
       ],
 
       directives: [
+        'ClosePopup',
         'Ripple'
       ],
 

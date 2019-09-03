@@ -16,6 +16,7 @@
     <q-btn
       color="primary" round size="lg" icon="add"
       class="fixed-bottom-right add-page-btn"
+      @click="addPage"
     />
   </q-page>
 </template>
@@ -35,6 +36,7 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import WebPageCard from './../components/WebPageCard.vue'
+import AddPageModal from './../components/AddPageModal.vue'
 
 @Component({
   components: { WebPageCard }
@@ -95,6 +97,12 @@ export default class Main extends Vue {
         message: '데이터를 읽어오는데 실패했습니다.'
       });
       console.log(e);
+    });
+  }
+
+  addPage () {
+    this.$q.dialog({
+      component: AddPageModal
     });
   }
 }
