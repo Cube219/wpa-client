@@ -105,7 +105,7 @@ export default class WebPageCard extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '데이터를 읽어오는데 실패했습니다.'
+        message: `데이터를 읽어오는데 실패했습니다. (${e.response.data})`
       });
     });
   }
@@ -120,7 +120,7 @@ export default class WebPageCard extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '읽음으로 표시하는데 실패했습니다.'
+        message: `읽음으로 표시하는데 실패했습니다. (${e.response.data})`
       });
     });
   }
@@ -135,7 +135,7 @@ export default class WebPageCard extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '읽지 않음으로 표시하는데 실패했습니다.'
+        message: `읽지 않음으로 표시하는데 실패했습니다. (${e.response.data})`
       });
     });
   }
@@ -155,7 +155,7 @@ export default class WebPageCard extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '보관에 실패했습니다.'
+        message: `보관에 실패했습니다. (${e.response.data})`
       });
       console.log(e);
     });
@@ -182,7 +182,7 @@ export default class WebPageCard extends Vue {
           color: 'negative',
           icon: 'warning',
           position: 'bottom-right',
-          message: '제거에 실패했습니다.'
+          message: `제거에 실패했습니다. (${e.response.data})`
         });
         console.log(e);
       });

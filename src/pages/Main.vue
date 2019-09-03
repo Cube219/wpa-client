@@ -94,7 +94,7 @@ export default class Main extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '데이터를 읽어오는데 실패했습니다.'
+        message: `데이터를 읽어오는데 실패했습니다. (${e.response.data})`
       });
       console.log(e);
     });
