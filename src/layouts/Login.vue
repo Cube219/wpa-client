@@ -55,7 +55,7 @@ export default class Login extends Vue {
         color: 'negative',
         icon: 'warning',
         position: 'bottom-right',
-        message: '로그인에 실패했습니다.'
+        message: `로그인에 실패했습니다. (${e.response.data})`
       });
       this.loggingIn = false;
       // @ts-ignore

@@ -10,6 +10,7 @@
         <div class="col">
           <div class="text-h6">{{ this.info.title }}</div>
           <div class="text-subtitle2"> {{ this.info.siteTitle }} </div>
+          <div class="text-subtitle2"> {{ this.info.category }} </div>
           <div class="text-subtitle2">{{ getDateStr }}</div>
         </div>
 
