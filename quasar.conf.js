@@ -43,6 +43,8 @@ module.exports = function (ctx) {
 
       components: [
         'QBadge',
+        'QBreadcrumbs',
+        'QBreadcrumbsEl',
         'QCard',
         'QCardSection',
         'QCardActions',

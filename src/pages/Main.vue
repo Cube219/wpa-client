@@ -1,6 +1,15 @@
 <template>
   <q-page>
-    <h3 class="title">{{ this.title }}</h3>
+    <h3 class="title"> {{ this.title }} </h3>
+
+    <div class="category text-h6">
+      <q-breadcrumbs active-color="grey-6" separator-color="black">
+        <q-breadcrumbs-el label="Test1" icon="widgets" />
+        <q-breadcrumbs-el label="Test2" />
+        <q-breadcrumbs-el label="Test3" />
+      </q-breadcrumbs>
+    </div>
+
     <q-infinite-scroll @load="onLoad" ref="infscroll">
       <div class="q-pa-xl row items-start q-gutter-lg">
         <web-page-card v-for="(item, index) in this.$store.state.pageInfos.pages" :key="index" :info="item"></web-page-card>
@@ -24,6 +33,9 @@
 <style>
 .title {
   margin-bottom: 0px;
+  margin-left: 40px;
+}
+.category {
   margin-left: 40px;
 }
 .add-page-btn {
