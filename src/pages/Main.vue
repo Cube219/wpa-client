@@ -85,14 +85,7 @@ export default class Main extends Vue {
       this.mode = 'Archieved';
     }
 
-    this.$store.commit('clearPageInfos');
-
-    // @ts-ignore
-    this.$refs.infscroll.reset();
-    // @ts-ignore
-    this.$refs.infscroll.resume();
-    // @ts-ignore
-    this.$refs.infscroll.trigger();
+    this.refreshList();
   }
 
   @Watch('currentCategory')
@@ -103,6 +96,8 @@ export default class Main extends Vue {
     if (this.currentCategoryList[0] === '') {
       this.currentCategoryList[0] = '전체';
     }
+
+    this.refreshList();
   }
 
   onLoad (index: Number, done:(stop: boolean)=>void) {
@@ -147,6 +142,17 @@ export default class Main extends Vue {
     this.$q.dialog({
       component: AddPageModal
     });
+  }
+
+  refreshList () {
+    this.$store.commit('clearPageInfos');
+
+    // @ts-ignore
+    this.$refs.infscroll.reset();
+    // @ts-ignore
+    this.$refs.infscroll.resume();
+    // @ts-ignore
+    this.$refs.infscroll.trigger();
   }
 }
 </script>
