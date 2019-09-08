@@ -59,6 +59,7 @@ module.exports = function (ctx) {
         'QPageContainer',
         'QPage',
         'QPopupProxy',
+        'QSelect',
         'QSeparator',
         // 'QSpinner',
         'QSpinnerDots',

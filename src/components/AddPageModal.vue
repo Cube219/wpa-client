@@ -14,10 +14,19 @@
               label="URL"
               :disable="adding"
             />
-            <q-input
+            <q-select
               filled
               dense
               v-model="category"
+              label="Category"
+              :options="getCategoryList"
+              :diable="adding"
+            />
+            <q-input
+              v-if="category === '추가...'"
+              filled
+              dense
+              v-model="newCategory"
               label="Category"
               :disable="adding"
             />
@@ -49,6 +58,7 @@ import { Component } from 'vue-property-decorator'
 export default class AddPageModal extends Vue {
   pageUrl: string = '';
   category: string = '';
+  newCategory: string = '';
   adding: boolean = false;
 
   show () {
@@ -65,7 +75,15 @@ export default class AddPageModal extends Vue {
   onOKClick () {
     this.adding = true;
 
-    this.$axios.post('/api/page/archieved', { url: this.pageUrl, category: this.category })
+    let realCategory: string;
+    if (this.category === '추가...') {
+      realCategory = this.newCategory;
+    } else {
+      realCategory = this.category;
+    }
+    console.log(realCategory);
+
+    this.$axios.post('/api/page/archieved', { url: this.pageUrl, category: realCategory })
       .then((res) => {
         this.adding = false;
         this.$q.notify({
@@ -91,6 +109,12 @@ export default class AddPageModal extends Vue {
   }
   onCancelClick () {
     this.hide()
+  }
+
+  get getCategoryList () {
+    let l: string[] = this.$store.getters.getCategoryList.slice();
+    l.push('추가...');
+    return l;
   }
 }
 </script>
