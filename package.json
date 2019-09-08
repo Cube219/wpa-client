@@ -1,6 +1,6 @@
 {
   "name": "wpa-client2",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "An alerting service when a new article appears.",
   "productName": "WebPageAlerter",
   "cordovaId": "org.cube219.webpagealerter",
