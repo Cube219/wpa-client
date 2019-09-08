@@ -3,10 +3,14 @@
     <h3 class="title"> {{ this.title }} </h3>
 
     <div class="category text-h6">
-      <q-breadcrumbs active-color="grey-6" separator-color="black">
-        <q-breadcrumbs-el label="Test1" icon="widgets" />
-        <q-breadcrumbs-el label="Test2" />
-        <q-breadcrumbs-el label="Test3" />
+      <q-breadcrumbs active-color="black" separator-color="black">
+        <q-icon name="widgets" size="25px" />
+
+        <q-breadcrumbs-el v-for="str in currentCategoryList" :key="str" :label="str" />
+
+        <q-popup-proxy ref="categoryPopup">
+          <category-tree-menu :currentCategory.sync="currentCategory" v-on:close="$refs.categoryPopup.hide()"></category-tree-menu>
+        </q-popup-proxy>
       </q-breadcrumbs>
     </div>
 
@@ -25,7 +29,7 @@
     <q-btn
       color="primary" round size="lg" icon="add"
       class="fixed-bottom-right add-page-btn"
-      @click="addPage"
+      @click="showAddPage"
     />
   </q-page>
 </template>
@@ -49,30 +53,28 @@ import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import WebPageCard from './../components/WebPageCard.vue'
 import AddPageModal from './../components/AddPageModal.vue'
+import CategoryTreeMenu from './../components/CategoryTreeMenu.vue'
 
 @Component({
-  components: { WebPageCard }
+  components: { WebPageCard, CategoryTreeMenu }
 })
 export default class Main extends Vue {
   mode: string = 'All';
+  currentCategory: string = '';
+  currentCategoryList: string[] = ['전체'];
 
-  get title () {
-    if (this.mode === 'All') {
-      return '모든 페이지';
-    } else if (this.mode === 'Archieved') {
-      return '보관된 페이지';
-    }
-
-    return 'undefined page';
-  }
-  get pageUrl () {
-    if (this.mode === 'All') {
-      return '/api/pages';
-    } else if (this.mode === 'Archieved') {
-      return '/api/pages/archieved'
-    }
-
-    return '/api/pages';
+  created () {
+    this.$axios.get('/api/category').then((response) => {
+      this.$store.commit('setCategoryList', response.data);
+    }).catch((e) => {
+      this.$q.notify({
+        color: 'negative',
+        icon: 'warning',
+        position: 'bottom-right',
+        message: `카테고리 데이터를 읽어오는데 실패했습니다. (${e.response.data})`
+      });
+      console.log(e);
+    });
   }
 
   @Watch('$route')
@@ -93,8 +95,18 @@ export default class Main extends Vue {
     this.$refs.infscroll.trigger();
   }
 
+  @Watch('currentCategory')
+  onCurrentCategoryChanged (newVal: string) {
+    this.currentCategoryList = newVal.split('/');
+
+    console.log(this.currentCategoryList);
+    if (this.currentCategoryList[0] === '') {
+      this.currentCategoryList[0] = '전체';
+    }
+  }
+
   onLoad (index: Number, done:(stop: boolean)=>void) {
-    this.$axios.get(this.pageUrl, { params: { afterId: this.$store.getters.lastPageId, count: 8 } }).then((response) => {
+    this.$axios.get(this.pageUrl, { params: { afterId: this.$store.getters.lastPageId, count: 8, category: this.currentCategory } }).then((response) => {
       if (response.data.length === 0) {
         done(true);
       } else {
@@ -112,7 +124,26 @@ export default class Main extends Vue {
     });
   }
 
-  addPage () {
+  get title () {
+    if (this.mode === 'All') {
+      return '모든 페이지';
+    } else if (this.mode === 'Archieved') {
+      return '보관된 페이지';
+    }
+
+    return 'undefined page';
+  }
+  get pageUrl () {
+    if (this.mode === 'All') {
+      return '/api/pages';
+    } else if (this.mode === 'Archieved') {
+      return '/api/pages/archieved'
+    }
+
+    return '/api/pages';
+  }
+
+  showAddPage () {
     this.$q.dialog({
       component: AddPageModal
     });

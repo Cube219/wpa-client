@@ -18,6 +18,7 @@ interface WebPageInfo {
 export default class PageInfos extends VuexModule {
   pages: WebPageInfo[] = [];
   token: string = '';
+  categoryList: string[] = [];
 
   @Mutation
   setToken(params: {token: string, isSessionCookie: boolean} ) {
@@ -68,5 +69,14 @@ export default class PageInfos extends VuexModule {
       return null;
     }
     return this.pages[this.pages.length - 1]._id;
+  }
+
+  get getCategoryList() {
+    return this.categoryList;
+  }
+  @Mutation
+  setCategoryList(list: string[]) {
+    this.categoryList = [];
+    this.categoryList = this.categoryList.concat(list);
   }
 }
