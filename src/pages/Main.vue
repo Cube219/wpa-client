@@ -1,36 +1,38 @@
 <template>
   <q-page>
-    <h3 class="title"> {{ this.title }} </h3>
+    <q-pull-to-refresh @refresh="onRefresh">
+      <h3 class="title"> {{ this.title }} </h3>
 
-    <div class="category text-h6">
-      <q-breadcrumbs active-color="black" separator-color="black">
-        <q-icon name="widgets" size="25px" />
+      <div class="category text-h6">
+        <q-breadcrumbs active-color="black" separator-color="black">
+          <q-icon name="widgets" size="25px" />
 
-        <q-breadcrumbs-el v-for="str in currentCategoryList" :key="str" :label="str" />
+          <q-breadcrumbs-el v-for="str in currentCategoryList" :key="str" :label="str" />
 
-        <q-popup-proxy ref="categoryPopup">
-          <category-tree-menu :currentCategory.sync="currentCategory" v-on:close="$refs.categoryPopup.hide()"></category-tree-menu>
-        </q-popup-proxy>
-      </q-breadcrumbs>
-    </div>
-
-    <q-infinite-scroll @load="onLoad" ref="infscroll">
-      <div class="q-pa-xl row items-start q-gutter-lg">
-        <web-page-card v-for="(item, index) in this.$store.state.pageInfos.pages" :key="index" :info="item"></web-page-card>
+          <q-popup-proxy ref="categoryPopup">
+            <category-tree-menu :currentCategory.sync="currentCategory" v-on:close="$refs.categoryPopup.hide()"></category-tree-menu>
+          </q-popup-proxy>
+        </q-breadcrumbs>
       </div>
 
-      <template v-slot:loading>
-        <div class="row justify-center q-my-md">
-          <q-spinner-dots color="primary" size="40px" />
+      <q-infinite-scroll @load="onLoad" ref="infscroll">
+        <div class="q-pa-xl row items-start q-gutter-lg">
+          <web-page-card v-for="(item, index) in this.$store.state.pageInfos.pages" :key="index" :info="item"></web-page-card>
         </div>
-      </template>
-    </q-infinite-scroll>
 
-    <q-btn
-      color="primary" round size="lg" icon="add"
-      class="fixed-bottom-right add-page-btn"
-      @click="showAddPage"
-    />
+        <template v-slot:loading>
+          <div class="row justify-center q-my-md">
+            <q-spinner-dots color="primary" size="40px" />
+          </div>
+        </template>
+      </q-infinite-scroll>
+
+      <q-btn
+        color="primary" round size="lg" icon="add"
+        class="fixed-bottom-right add-page-btn"
+        @click="showAddPage"
+      />
+    </q-pull-to-refresh>
   </q-page>
 </template>
 
@@ -117,6 +119,11 @@ export default class Main extends Vue {
       });
       console.log(e);
     });
+  }
+
+  onRefresh (done: ()=>void) {
+    this.refreshList();
+    done();
   }
 
   get title () {
