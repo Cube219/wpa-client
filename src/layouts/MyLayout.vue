@@ -24,19 +24,17 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Main</q-item-label>
-        <!-- <q-item clickable tag="a" target="_blank" href="https://quasar.dev"> -->
         <q-item v-ripple clickable
-          :active="currentLink === 'Unreaded pages'"
-          @click="currentLink = 'Unreaded pages'"
+          :active="currentLink === 'All pages'"
+          @click="currentLink = 'All pages'"
           active-class="current-link"
           to="all"
         >
           <q-item-section avatar>
-            <q-icon name="school" />
+            <q-icon name="description" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Unreaded pages</q-item-label>
+            <q-item-label>모든 페이지</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-ripple clickable
@@ -46,40 +44,15 @@
           to="archieved"
         >
           <q-item-section avatar>
-            <q-icon name="code" />
+            <q-icon name="save_alt" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Archieved pages</q-item-label>
+            <q-item-label>보관된 페이지</q-item-label>
           </q-item-section>
         </q-item>
 
-        <q-separator spaced />
-
-        <q-expansion-item label="Catetories">
-          <q-item v-ripple :inset-level="1" clickable
-            :active="currentLink === 'Categories/Develop/Graphics'"
-            @click="currentLink = 'Categories/Develop/Graphics'"
-            active-class="current-link"
-          >
-            <q-item-section>
-              <q-item-label>Develop/Graphics</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item v-ripple :inset-level="1" clickable
-            :active="currentLink === 'Categories/Developer\'s blog'"
-            @click="currentLink = 'Categories/Developer\'s blog'"
-            active-class="current-link"
-          >
-            <q-item-section>
-              <q-item-label>Developer's blog</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-expansion-item>
-
-        <q-separator spaced />
-
-        <q-expansion-item label="Web Sites">
-          <q-item v-ripple :inset-level="1" clickable
+        <q-expansion-item label="Web Sites" icon="fas fa-window-maximize" expand-separator>
+          <q-item v-ripple :inset-level="1" dense clickable
             :active="currentLink === 'Web Sites/Web Site 1'"
             @click="currentLink = 'Web Sites/Web Site 1'"
             active-class="current-link"
@@ -88,7 +61,7 @@
               <q-item-label>Web Site 1</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item v-ripple :inset-level="1" clickable
+          <q-item v-ripple :inset-level="1" dense clickable
             :active="currentLink === 'Web Sites/Web Site 2'"
             @click="currentLink = 'Web Sites/Web Site 2'"
             active-class="current-link"
@@ -99,33 +72,26 @@
           </q-item>
         </q-expansion-item>
 
-        <q-separator spaced />
-
-        <q-item-label header>Setting</q-item-label>
-        <q-item v-ripple clickable
-            :active="currentLink === 'Setting/Web Site'"
-            @click="currentLink = 'Setting/Web Site'"
-            active-class="current-link"
-          >
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Web Site</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item v-ripple clickable
-            :active="currentLink === 'Setting/Page'"
-            @click="currentLink = 'Setting/Page'"
-            active-class="current-link"
-          >
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Page</q-item-label>
-          </q-item-section>
-        </q-item>
+        <q-expansion-item label="Settings" icon="fas fa-cog" expand-separator>
+          <q-item v-ripple :inset-level="1" dense clickable
+              :active="currentLink === 'Setting/Web Site'"
+              @click="currentLink = 'Setting/Web Site'"
+              active-class="current-link"
+            >
+            <q-item-section>
+              <q-item-label>Web Site</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple :inset-level="1" dense clickable
+              :active="currentLink === 'Setting/Page'"
+              @click="currentLink = 'Setting/Page'"
+              active-class="current-link"
+            >
+            <q-item-section>
+              <q-item-label>Page</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-expansion-item>
       </q-list>
     </q-drawer>
 
